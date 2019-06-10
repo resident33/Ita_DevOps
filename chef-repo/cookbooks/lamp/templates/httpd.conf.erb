@@ -1,0 +1,31 @@
+Listen 80
+Include conf.modules.d/*.conf
+User apache
+Group apache
+<IfModule mime_module>
+    TypesConfig /etc/mime.types
+    AddType application/x-compress .Z
+    AddType application/x-gzip .gz .tgz
+    AddType text/html .shtml
+    AddOutputFilter INCLUDES .shtml
+</IfModule>
+
+<VirtualHost *:80>
+  ServerName <%= node['wordpress']['server_name'] %>
+  ServerAdmin <%= node['wordpress']['server_admin'] %>
+  DocumentRoot <%= node['wordpress']['document_root'] %>
+  <Directory "/">
+          Options FollowSymLinks
+          AllowOverride None
+  </Directory>
+  <Directory <%= node['wordpress']['document_root'] %> >
+          Options Indexes FollowSymLinks MultiViews
+          AllowOverride None
+          Require all granted
+  </Directory>
+  ErrorLog <%= node['wordpress']['error_log'] %>
+  CustomLog <%= node['wordpress']['custom_log'] %> combined
+  AddType application/x-httpd-php .php
+  AddType application/x-httpd-php-source .phps
+  DirectoryIndex index.php index.html
+</VirtualHost>
