@@ -18,7 +18,7 @@ hostname=$(hostname)
 cp -R /vagrant/chef-repo/ ./
 cd ./chef-repo/
 
-chef-client -Yes
+chef-client --chef-license accept
 
-knife bootstrap $ipaddr --connect-user vagrant --sudo --ssh-identity-file /vagrant/.vagrant/machines/$hostname/virtualbox/private_key --node-name $hostname -r 'role[bdserv]'
+knife bootstrap --y $ipaddr --connect-user vagrant --sudo --ssh-identity-file /vagrant/.vagrant/machines/$hostname/virtualbox/private_key --node-name $hostname -r 'role[webserv]'
 
