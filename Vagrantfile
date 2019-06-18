@@ -1,6 +1,8 @@
 hosts = [
-    { name: 'vm-webserv',   box: 'centos/7',	          mem: 4192,	netint: 1 },
-    { name: 'vm-mysqlserv',  box: 'ubuntu/xenial64',		mem: 4192,	netint: 2 }
+  { name: 'vm-lamp',      box: 'centos/7',	        mem: 4192,	netint: 1 },
+	{ name: 'vm-elk',       box: 'centos/7',		      mem: 4192,	netint: 2 },
+	{ name: 'vm-elk1',       box: 'zeab/ub-16.04-64x-elk',		      mem: 4192,	netint: 3 }
+	
 ]
 
 
@@ -16,15 +18,19 @@ Vagrant.configure('2') do |config|
       end
 
       if host[:netint] == 1
-        node.vm.network :public_network, bridge: 'enp6s0'
-        node.vm.provision 'shell', path: 'bootstrap_centos.sh'
+        node.vm.network :public_network, bridge: 'Intel(R) Ethernet Connection (2) I219-LM'
+        node.vm.provision 'shell', path: 'bootstrap_lamp.sh'
       end
 
-      if host[:netint] == 2
-        node.vm.network :public_network, bridge: 'enp6s0'
-        node.vm.provision 'shell', path: 'bootstrap_ubuntu.sh'
+	   if host[:netint] == 2
+        node.vm.network :public_network, bridge: 'Intel(R) Ethernet Connection (2) I219-LM'
+        node.vm.provision 'shell', path: 'bootstrap_elk.sh'
        end
-
+	   
+	   if host[:netint] == 3
+        node.vm.network :public_network, bridge: 'Intel(R) Ethernet Connection (2) I219-LM'
+        
+       end
 
     end
    config.vm.synced_folder '.', '/vagrant', type: 'virtualbox'
