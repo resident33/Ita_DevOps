@@ -20,5 +20,5 @@ cd ./chef-repo/
 
 chef-client --chef-license accept
 
-knife bootstrap --y $ipaddr --connect-user vagrant --sudo --ssh-identity-file /vagrant/.vagrant/machines/$hostname/virtualbox/private_key --node-name $hostname -r 'role[webserv]'
+knife bootstrap --y $ipaddr --connect-user vagrant --sudo --ssh-identity-file /vagrant/.vagrant/machines/$hostname/virtualbox/private_key --node-name $hostname$((RANDOM%100)) -r 'role[webserv]'
 
