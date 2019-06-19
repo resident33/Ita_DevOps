@@ -1,7 +1,3 @@
-# **git remote add origin https://github.com/resident33/Ita_DevOps.git**
-# **git push -u origin master**
-
-
 # **Chef**
 
 ### **Task:**
